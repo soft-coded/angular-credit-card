@@ -12,6 +12,33 @@
     <p *ngIf="userData.payments == null || userData.payments.length === 0">
       You have not made any payments yet.
     </p>
+    <table
+      class="table table-striped"
+      *ngIf="userData.payments && userData.payments.length > 0"
+    >
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Credit card number</th>
+          <th scope="col">Email</th>
+          <th scope="col">Mobile number</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Paid using</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of userData.payments; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ payment.creditCardNumber }}</td>
+          <td>{{ payment.email }}</td>
+          <td>{{ payment.mobileNumber }}</td>
+          <td>{{ payment.amount }}</td>
+          <td>{{ payment.paidUsingCardNumber }}</td>
+          <td>{{ payment.status | uppercase }}</td>
+        </tr>
+      </tbody>
+    </table>
     <a class="btn btn-primary mt-1" routerLink="/new-payment">New Payment</a>
   </div>
   <hr />

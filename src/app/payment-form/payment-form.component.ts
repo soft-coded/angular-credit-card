@@ -51,8 +51,13 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
     this.authSub.unsubscribe();
   }
 
-  randomChoice() {
-    const arr = ['completed', 'pending', 'failed'];
+  // a method to randomly assign a status to a payment
+  randomStatus(): 'completed' | 'pending' | 'failed' {
+    const arr: ['completed', 'pending', 'failed'] = [
+      'completed',
+      'pending',
+      'failed',
+    ];
     return arr[Math.floor(arr.length * Math.random())];
   }
 
@@ -65,7 +70,10 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
 
     // proceed if the form is valid
     this.userService
-      .addPayment(this.userData, this.form.value as Payment)
+      .addPayment(this.userData, {
+        ...(this.form.value as Payment),
+        status: this.randomStatus(), // status is being randomly allotted
+      })
       .subscribe(() => this.router.navigate(['/']));
   }
 }

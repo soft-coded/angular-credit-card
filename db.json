@@ -42,8 +42,17 @@
           "creditCardNumber": "9876987698769876",
           "email": "a@b.c",
           "mobileNumber": "1234567890",
-          "amount": "5000",
-          "paidUsingCardNumber": "1234123412341234"
+          "amount": "10000",
+          "paidUsingCardNumber": "1234123412341234",
+          "status": "pending"
+        },
+        {
+          "creditCardNumber": "8937498312312334",
+          "email": "a@b.c",
+          "mobileNumber": "1231231234",
+          "amount": "98765",
+          "paidUsingCardNumber": "5678567856785678",
+          "status": "failed"
         }
       ]
     }
