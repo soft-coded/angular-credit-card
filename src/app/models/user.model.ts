@@ -1,4 +1,5 @@
 import DebitCard from './card.model';
+import Payment from './payment.model';
 
 export default interface User {
   id?: string | number;
@@ -9,4 +10,5 @@ export default interface User {
   mobileNumber: string;
   password: string;
   debitCards?: DebitCard[];
+  payments?: Payment[];
 }
