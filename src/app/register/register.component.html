@@ -1,0 +1,118 @@
+<div class="form-wrapper m-5 d-flex align-items-center justify-content-center">
+  <form
+    class="bg-secondary bg-opacity-10 p-4 rounded-3 d-flex flex-column w-50"
+    [formGroup]="form"
+    (ngSubmit)="handleFormSubmit()"
+  >
+    <h2 class="text-center">Register</h2>
+    <hr />
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        formControlName="email"
+        id="email"
+        [ngClass]="{
+          'border border-danger':
+            (form.get('email')?.touched &&
+              form.get('email')?.status === 'INVALID') ||
+            emailAlreadyRegistered
+        }"
+      />
+      <div
+        id="emailHelp"
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="
+          form.get('email')?.touched && form.get('email')?.status === 'INVALID'
+        "
+      >
+        Invalid email
+      </div>
+      <div
+        id="emailHelp"
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="emailAlreadyRegistered"
+      >
+        Email already registered
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="name"
+        id="name"
+        [ngClass]="{
+          'border border-danger': form.get('name')?.touched && form.get('name')?.errors?.['required']
+        }"
+      />
+      <div
+        id="nameHelp"
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="form.get('name')?.touched && form.get('name')?.errors?.['required']"
+      >
+        Name cannot be empty
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="address" class="form-label">Address</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="address"
+        id="address"
+      />
+      <div
+        id="addressHelp"
+        class="form-text text-danger px-2 fw-semibold"
+      ></div>
+    </div>
+    <div class="mb-3">
+      <label for="acc" class="form-label">Account number</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="accountNumber"
+        id="acc"
+      />
+      <div id="accHelp" class="form-text text-danger px-2 fw-semibold"></div>
+    </div>
+    <div class="mb-3">
+      <label for="mobile" class="form-label">Mobile number</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="mobileNumber"
+        id="mobile"
+        [ngClass]="{'border border-danger': form.get('mobileNumber')?.touched && (form.get('mobileNumber')?.errors?.['required'] || form.get('mobileNumber')?.errors?.['minlength'] || form.get('mobileNumber')?.errors?.['maxlength'])}"
+      />
+      <div
+        id="mobileHelp"
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="form.get('mobileNumber')?.touched && (form.get('mobileNumber')?.errors?.['required'] || form.get('mobileNumber')?.errors?.['minlength'] || form.get('mobileNumber')?.errors?.['maxlength'])"
+      >
+        Mobile number must be of 10 digits
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        formControlName="password"
+        id="exampleInputPassword1"
+        [ngClass]="{'border border-danger': form.get('password')?.touched && form.get('password')?.errors?.['required']}"
+      />
+      <div
+        id="passwordHelp"
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="form.get('password')?.touched && form.get('password')?.errors?.['required']"
+      >
+        Password cannot be empty
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
