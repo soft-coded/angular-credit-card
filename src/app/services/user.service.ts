@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import User from '../models/user.model';
+import DebitCard from '../models/card.model';
 
 const BACKEND_URL = 'http://localhost:3000';
 const USERS_ENDPOINT = '/users';
@@ -25,6 +26,16 @@ export class UserService {
   getUserViaEmail(email: string) {
     return this.http.get<User[]>(
       BACKEND_URL + USERS_ENDPOINT + '?email=' + email
+    );
+  }
+
+  addDebitCard(userId: string, cardDetails: DebitCard) {
+    return this.http.patch(
+      BACKEND_URL + USERS_ENDPOINT + '/' + userId,
+      cardDetails,
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
     );
   }
 }

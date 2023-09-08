@@ -4,3 +4,10 @@
 >
   <p>LOADING...</p>
 </div>
+<div class="loaded container my-3" *ngIf="userData != null">
+  <h2>Welcome, {{ userData.name }}!</h2>
+  <div class="buttons d-flex gap-2">
+    <a class="btn btn-primary">New Payment</a>
+    <a class="btn btn-outline-primary" routerLink="/add-card">Add Card</a>
+  </div>
+</div>
