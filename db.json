@@ -36,6 +36,15 @@
           "cvv": "123",
           "nameOnCard": "example name"
         }
+      ],
+      "payments": [
+        {
+          "creditCardNumber": "9876987698769876",
+          "email": "a@b.c",
+          "mobileNumber": "1234567890",
+          "amount": "5000",
+          "paidUsingCardNumber": "1234123412341234"
+        }
       ]
     }
   ]

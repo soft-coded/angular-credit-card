@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import User from '../models/user.model';
 import DebitCard from '../models/card.model';
+import Payment from '../models/payment.model';
 
 const BACKEND_URL = 'http://localhost:3000';
 const USERS_ENDPOINT = '/users';
@@ -39,6 +40,22 @@ export class UserService {
     return this.http.patch(
       BACKEND_URL + USERS_ENDPOINT + '/' + userDetails.id,
       { debitCards: cards },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
+  addPayment(userData: User, paymentData: Payment) {
+    let payments: Payment[] = [];
+    if (userData.payments) {
+      payments = userData.payments;
+    }
+    payments.push(paymentData);
+
+    return this.http.patch(
+      BACKEND_URL + USERS_ENDPOINT + '/' + userData.id,
+      { payments },
       {
         headers: { 'Content-Type': 'application/json' },
       }

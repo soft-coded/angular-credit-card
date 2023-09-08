@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 import User from '../models/user.model';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import Payment from '../models/payment.model';
 
 @Component({
   selector: 'app-payment-form',
@@ -32,19 +34,26 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.authSub = this.authService.userEmail.subscribe((email) => {
       this.userService.getUserViaEmail(email!).subscribe((data) => {
         this.userData = data[0];
+        if (!data[0].debitCards) this.userData.debitCards = [];
       });
     });
   }
 
   ngOnDestroy(): void {
     this.authSub.unsubscribe();
+  }
+
+  randomChoice() {
+    const arr = ['completed', 'pending', 'failed'];
+    return arr[Math.floor(arr.length * Math.random())];
   }
 
   handleFormSubmit() {
@@ -54,6 +63,9 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    console.log(this.form);
+    // proceed if the form is valid
+    this.userService
+      .addPayment(this.userData, this.form.value as Payment)
+      .subscribe(() => this.router.navigate(['/']));
   }
 }
