@@ -5,9 +5,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private userEmail = new Subject<string | null>();
-
-  constructor() {}
+  userEmail = new Subject<string | null>();
 
   login(email: string) {
     this.userEmail.next(email);
@@ -15,13 +13,5 @@ export class AuthService {
 
   logout() {
     this.userEmail.next(null);
-  }
-
-  isAuthenticated() {
-    return this.userEmail != null;
-  }
-
-  getEmail() {
-    return this.userEmail;
   }
 }
