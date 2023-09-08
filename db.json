@@ -16,7 +16,21 @@
       "accountNumber": "21332131",
       "mobileNumber": "1234567890",
       "password": "12345678",
-      "id": 2
+      "id": 2,
+      "debitCards": [
+        {
+          "cardNumber": "1234123412341234",
+          "expiryDate": "01/01",
+          "cvv": "123",
+          "nameOnCard": "sajddsakjhdsa"
+        },
+        {
+          "cardNumber": "5678567856785678",
+          "expiryDate": "02/02",
+          "cvv": "456",
+          "nameOnCard": "dosjaoiutoewiu"
+        }
+      ]
     }
   ]
 }
