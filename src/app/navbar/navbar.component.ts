@@ -11,13 +11,15 @@ import { AuthService } from '../services/auth.service';
 export class NavbarComponent implements OnInit, OnDestroy {
   authSub: Subscription;
   isLoggedIn: boolean;
+  email: string | null;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.authSub = this.authService.userEmail.subscribe(
-      (email) => (this.isLoggedIn = !!email)
-    );
+    this.authSub = this.authService.userEmail.subscribe((email) => {
+      this.isLoggedIn = !!email;
+      this.email = email;
+    });
   }
 
   ngOnDestroy(): void {
