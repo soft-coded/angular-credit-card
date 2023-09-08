@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,11 @@ export class LoginComponent {
   userDoesNotExist = false;
   incorrectPassword = false;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   // handle submission
   handleFormSubmit() {
@@ -46,7 +51,9 @@ export class LoginComponent {
           this.incorrectPassword = true;
           return;
         }
-        // redirect to dashboard on successful authentication
+        // update auth state on successful authentication
+        this.authService.login(this.form.value.email!);
+        // redirect to homepage
         this.router.navigate(['/']);
       });
   }
