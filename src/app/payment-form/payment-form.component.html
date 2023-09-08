@@ -1,0 +1,134 @@
+<div class="form-wrapper m-5 d-flex align-items-center justify-content-center">
+  <form
+    class="bg-secondary bg-opacity-10 p-4 rounded-3 d-flex flex-column w-50"
+    [formGroup]="form"
+    (ngSubmit)="handleFormSubmit()"
+  >
+    <h2 class="text-center">New payment</h2>
+    <hr />
+    <div class="mb-3">
+      <label for="creditCardNumber" class="form-label"
+        >Credit card number</label
+      >
+      <input
+        type="email"
+        class="form-control"
+        formControlName="creditCardNumber"
+        id="creditCardNumber"
+        [ngClass]="{
+          'border border-danger':
+            form.get('creditCardNumber')?.touched &&
+            form.get('creditCardNumber')?.status === 'INVALID'
+        }"
+      />
+      <div
+        id="emailHelp"
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="
+          form.get('creditCardNumber')?.touched &&
+          form.get('creditCardNumber')?.status === 'INVALID'
+        "
+      >
+        Card number should be of 16 digits
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        formControlName="email"
+        id="email"
+        [ngClass]="{
+          'border border-danger':
+            form.get('email')?.touched &&
+            form.get('email')?.status === 'INVALID'
+        }"
+      />
+      <div
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="
+          form.get('email')?.touched && form.get('email')?.status === 'INVALID'
+        "
+      >
+        Invalid email
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="mobileNumber" class="form-label">Mobile number</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="mobileNumber"
+        id="mobileNumber"
+        [ngClass]="{
+          'border border-danger':
+            form.get('mobileNumber')?.touched &&
+            form.get('mobileNumber')?.status === 'INVALID'
+        }"
+      />
+      <div
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="
+          form.get('mobileNumber')?.touched &&
+          form.get('mobileNumber')?.status === 'INVALID'
+        "
+      >
+        Mobile number should be of 10 digits
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="amount" class="form-label">Amount</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="amount"
+        id="amount"
+        [ngClass]="{
+          'border border-danger':
+            form.get('amount')?.touched &&
+            form.get('amount')?.status === 'INVALID'
+        }"
+      />
+      <div
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="
+          form.get('amount')?.touched &&
+          form.get('amount')?.status === 'INVALID'
+        "
+      >
+        Amount must be greater than 0
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="pay-from" class="form-label">Pay from</label>
+      <select
+        class="form-select"
+        formControlName="paidUsingCardNumber"
+        id="pay-from"
+        [ngClass]="{
+          'border border-danger':
+            form.get('paidUsingCardNumber')?.touched &&
+            form.get('paidUsingCardNumber')?.status === 'INVALID'
+        }"
+      >
+        <option
+          *ngFor="let card of userData.debitCards"
+          value="{{ card.cardNumber }}"
+        >
+          {{ card.cardNumber }}
+        </option>
+      </select>
+      <div
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="
+          form.get('paidUsingCardNumber')?.touched &&
+          form.get('paidUsingCardNumber')?.status === 'INVALID'
+        "
+      >
+        Required
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

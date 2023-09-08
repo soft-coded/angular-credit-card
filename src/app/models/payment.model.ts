@@ -4,4 +4,5 @@ export default interface Payment {
   mobileNumber?: string;
   amount: string;
   paidUsingCardNumber: string;
+  status?: 'completed' | 'pending' | 'failed';
 }
