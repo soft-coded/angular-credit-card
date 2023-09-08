@@ -1,0 +1,66 @@
+<div class="form-wrapper m-5 d-flex align-items-center justify-content-center">
+  <form
+    class="bg-secondary bg-opacity-10 p-4 rounded-3 d-flex flex-column w-50"
+    [formGroup]="form"
+    (ngSubmit)="handleFormSubmit()"
+  >
+    <h2 class="text-center">Log In</h2>
+    <hr />
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        formControlName="email"
+        id="email"
+        [ngClass]="{
+          'border border-danger':
+            (form.get('email')?.touched &&
+              form.get('email')?.status === 'INVALID') ||
+            userDoesNotExist
+        }"
+      />
+      <div
+        id="emailHelp"
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="
+          form.get('email')?.touched && form.get('email')?.status === 'INVALID'
+        "
+      >
+        Invalid email
+      </div>
+      <div
+        id="emailHelp"
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="userDoesNotExist"
+      >
+        Unregistered email
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        formControlName="password"
+        id="exampleInputPassword1"
+        [ngClass]="{'border border-danger': (form.get('password')?.touched && form.get('password')?.errors?.['required']) || incorrectPassword}"
+      />
+      <div
+        id="passwordHelp"
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="form.get('password')?.touched && form.get('password')?.errors?.['required']"
+      >
+        Password cannot be empty
+      </div>
+      <div
+        id="passwordHelp"
+        class="form-text text-danger px-2 fw-semibold"
+        *ngIf="incorrectPassword"
+      >
+        Incorrect password
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
