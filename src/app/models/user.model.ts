@@ -1,3 +1,5 @@
+import DebitCard from './card.model';
+
 export default interface User {
   id?: string | number;
   email: string;
@@ -6,4 +8,5 @@ export default interface User {
   accountNumber?: string;
   mobileNumber: string;
   password: string;
+  debitCards?: DebitCard[];
 }

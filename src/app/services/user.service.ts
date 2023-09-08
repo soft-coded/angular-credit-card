@@ -29,10 +29,16 @@ export class UserService {
     );
   }
 
-  addDebitCard(userId: string, cardDetails: DebitCard) {
+  addDebitCard(userDetails: User, cardDetails: DebitCard) {
+    let cards: DebitCard[] = [];
+    if (userDetails.debitCards) {
+      cards = userDetails.debitCards;
+    }
+    cards.push(cardDetails);
+
     return this.http.patch(
-      BACKEND_URL + USERS_ENDPOINT + '/' + userId,
-      cardDetails,
+      BACKEND_URL + USERS_ENDPOINT + '/' + userDetails.id,
+      { debitCards: cards },
       {
         headers: { 'Content-Type': 'application/json' },
       }

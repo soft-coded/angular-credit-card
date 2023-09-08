@@ -4,6 +4,9 @@ import { Subscription } from 'rxjs';
 
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
+import DebitCard from '../models/card.model';
+import { Router } from '@angular/router';
+import User from '../models/user.model';
 
 @Component({
   selector: 'app-add-card',
@@ -11,7 +14,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./add-card.component.css'],
 })
 export class AddCardComponent implements OnInit, OnDestroy {
-  userId: string | number;
+  userData: User;
   authSub: Subscription;
   form = new FormGroup({
     cardNumber: new FormControl('', [
@@ -30,14 +33,15 @@ export class AddCardComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.authSub = this.authService.userEmail.subscribe((email) => {
       this.userService
         .getUserViaEmail(email!)
-        .subscribe((data) => (this.userId = data[0].id!));
+        .subscribe((data) => (this.userData = data[0]));
     });
   }
 
@@ -53,6 +57,8 @@ export class AddCardComponent implements OnInit, OnDestroy {
     }
 
     // proceed if everything is correct
-    this.userService.addDebitCard(this.userId);
+    this.userService
+      .addDebitCard(this.userData, this.form.value as DebitCard)
+      .subscribe(() => this.router.navigate(['/']));
   }
 }
